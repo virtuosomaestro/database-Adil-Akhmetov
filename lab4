@@ -1,0 +1,106 @@
+Microsoft Windows [Version 10.0.26200.9278]
+(c) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+C:\Program Files\PostgreSQL\18\pgAdmin 4\runtime>"C:\Program Files\PostgreSQL\18\pgAdmin 4\runtime\psql.exe" "host=localhost port=5432 dbname=postgres user=postgres sslmode=prefer
+ connect_timeout=10 keepalives=1 keepalives_idle=30 keepalives_interval=10 keepalives_count=3" 2>>&1
+psql (18.6)
+Type "help" for help.
+
+postgres=# SELECT name, email FROM sudents ORDER BY;
+ОШИБКА:  ошибка синтаксиса (примерное положение: ";")
+LINE 1: SELECT name, email FROM sudents ORDER BY;
+                                                ^
+postgres=# SELECT name, email FROM sudents ORDER BY
+postgres-# ;
+ОШИБКА:  ошибка синтаксиса (примерное положение: ";")
+LINE 2: ;
+        ^
+postgres=# SELECT name, email FROM sudents ORDER BY:
+postgres-#
+postgres-# ;
+ОШИБКА:  ошибка синтаксиса (примерное положение: ":")
+LINE 1: SELECT name, email FROM sudents ORDER BY:
+                                                ^
+postgres=# \dt
+            List of tables
+ Schema |   Name   | Type  |  Owner
+--------+----------+-------+----------
+ public | students | table | postgres
+(1 row)
+
+
+postgres=# SELECT * FROM students
+postgres-# ;
+ id | name  | age |      email
+----+-------+-----+-----------------
+  1 | Adil  |  19 | aa13081@auca.kg
+  2 | Aktan |  21 | aa13082@auca.kg
+  3 | Isa   |  20 | si13092@auca.kg
+(3 rows)
+
+
+postgres=# SELECT name, age, email FROM sudents ORDER BY;
+ОШИБКА:  ошибка синтаксиса (примерное положение: ";")
+LINE 1: SELECT name, age, email FROM sudents ORDER BY;
+                                                     ^
+postgres=# SELECT name, age, email FROM sudents ORDER BY ASC;
+ОШИБКА:  ошибка синтаксиса (примерное положение: "ASC")
+LINE 1: SELECT name, age, email FROM sudents ORDER BY ASC;
+                                                      ^
+postgres=# SELECT name, age, email FROM su
+postgres-# ;
+ОШИБКА:  отношение "su" не существует
+LINE 1: SELECT name, age, email FROM su
+                                     ^
+postgres=# SELECT name, age, email FROM sudents ORDER BY age DESC;
+ОШИБКА:  отношение "sudents" не существует
+LINE 1: SELECT name, age, email FROM sudents ORDER BY age DESC;
+                                     ^
+postgres=# SELECT name, age, email FROM students ORDER BY age DESC;
+ name  | age |      email
+-------+-----+-----------------
+ Aktan |  21 | aa13082@auca.kg
+ Isa   |  20 | si13092@auca.kg
+ Adil  |  19 | aa13081@auca.kg
+(3 rows)
+
+
+postgres=# SELECT name, email FROM students WHERE name = 'Aktan';
+ name  |      email
+-------+-----------------
+ Aktan | aa13082@auca.kg
+(1 row)
+
+
+postgres=# SELECT id, email FROM students;
+ id |      email
+----+-----------------
+  1 | aa13081@auca.kg
+  2 | aa13082@auca.kg
+  3 | si13092@auca.kg
+(3 rows)
+
+
+postgres=# SELECT name, age  FROM students LIMIT 1;
+ name | age
+------+-----
+ Adil |  19
+(1 row)
+
+
+postgres=# SELECT name, age  FROM students LIMIT 2;
+ name  | age
+-------+-----
+ Adil  |  19
+ Aktan |  21
+(2 rows)
+
+
+postgres=# SELECT name, age  FROM students LIMIT 3;
+ name  | age
+-------+-----
+ Adil  |  19
+ Aktan |  21
+ Isa   |  20
+(3 rows)
+
