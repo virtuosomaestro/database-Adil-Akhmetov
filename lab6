@@ -1,0 +1,91 @@
+Microsoft Windows [Version 10.0.26200.9278]
+(c) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+C:\Program Files\PostgreSQL\18\pgAdmin 4\runtime>"C:\Program Files\PostgreSQL\18\pgAdmin 4\runtime\psql.exe" "host=localhost port=5432 dbname=postgres user=postgres sslmode=prefer
+ connect_timeout=10 keepalives=1 keepalives_idle=30 keepalives_interval=10 keepalives_count=3" 2>>&1
+psql (18.6)
+Type "help" for help.
+
+postgres=# CREATE TABLE students (
+postgres(#     student_id SERIAL PRIMARY KEY,
+postgres(#     first_name VARCHAR(50) NOT NULL,
+postgres(#     last_name VARCHAR(50) NOT NULL,
+postgres(#     email VARCHAR(100) UNIQUE NOT NULL,
+postgres(#     faculty VARCHAR(100)
+postgres(# );
+CREATE TABLE
+postgres=# CREATE TABLE existing_table();
+CREATE TABLE
+postgres=# CREATE TABLE non_existing_table();
+CREATE TABLE
+postgres=# DROP TABLE IF EXISTS existing_table;
+DROP TABLE
+postgres=# DROP TABLE IF EXISTS non_existing_table;
+DROP TABLE
+postgres=# DROP TABLE IF EXISTS non_existing_table;
+ЗАМЕЧАНИЕ:  таблица "non_existing_table" не существует, пропускается
+DROP TABLE
+postgres=# ALTER TABLE students
+postgres-# ADD COLUMN age INT
+postgres-# ;
+ALTER TABLE
+postgres=# SELECT * FROM students
+postgres-# ;
+ student_id | first_name | last_name | email | faculty | age
+------------+------------+-----------+-------+---------+-----
+(0 rows)
+
+
+postgres=# ALTER TABLE students
+postgres-# DROP COLUMN email
+postgres-# ;
+ALTER TABLE
+postgres=# ALTER TABLE ALTER COLUMN last_name TYPE TEXT
+postgres-# ;
+ОШИБКА:  ошибка синтаксиса (примерное положение: "COLUMN")
+LINE 1: ALTER TABLE ALTER COLUMN last_name TYPE TEXT
+                          ^
+postgres=# ALTER TABLE students  ALTER COLUMN last_name TYPE TEXT
+postgres-# ;
+ALTER TABLE
+postgres=# ALTER TABLE students
+postgres-# ADD CONSTRAINT not_null_age NOT NULL (age);
+ОШИБКА:  ошибка синтаксиса (примерное положение: "(")
+LINE 2: ADD CONSTRAINT not_null_age NOT NULL (age);
+                                             ^
+postgres=# ALTER TABLE students
+postgres-# ADD CONSTRAINT age NOT NULL (age);
+ОШИБКА:  ошибка синтаксиса (примерное положение: "(")
+LINE 2: ADD CONSTRAINT age NOT NULL (age);
+                                    ^
+postgres=# SELECT * FROM students;
+ student_id | first_name | last_name | faculty | age
+------------+------------+-----------+---------+-----
+(0 rows)
+
+
+postgres=# ALTER TABLE students
+postgres-# ADD CONSTRAINT age UNIQUE (age);
+ALTER TABLE
+postgres=# ALTER TABLE students
+postgres-# ADD CONSTRAINT age NOT NULL (age);
+ОШИБКА:  ошибка синтаксиса (примерное положение: "(")
+LINE 2: ADD CONSTRAINT age NOT NULL (age);
+                                    ^
+postgres=# ALTER TABLE students
+postgres-# ADD CONSTRAINT valid_age CHECK (age >=0 AND age <= 100) (age);
+ОШИБКА:  ошибка синтаксиса (примерное положение: "(")
+LINE 2: ...D CONSTRAINT valid_age CHECK (age >=0 AND age <= 100) (age);
+                                                                 ^
+postgres=# ALTER TABLE students
+postgres-# ADD CONSTRAINT valid_age CHECK (age >=0 AND age <= 100);
+ALTER TABLE
+postgres=# SELECT * FROM students;
+ student_id | first_name | last_name | faculty | age
+------------+------------+-----------+---------+-----
+(0 rows)
+
+
+postgres=# CREATE TEMP TABLE temporary();
+CREATE TABLE
+postgres=#
