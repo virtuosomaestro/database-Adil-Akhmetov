@@ -1,0 +1,37 @@
+Conceptual Design
+Entities: producers, consumers, product
+Relationships:
+1) products have their producers
+2) consumers purchase producers
+
+DROP TABLE producers;
+DROP TABLE products;
+DROP TABLE consumers;
+
+
+
+CREATE TABLE producers(
+	producer_id SERIAL PRIMARY KEY,
+	producer_name VARCHAR(50)
+);
+
+CREATE TABLE products(
+	product_id SERIAL PRIMARY KEY,
+	product_name VARCHAR(50),
+	price INT,
+	production_date DATE DEFAULT (CURRENT_DATE),
+	producer_id INT NOT NULL,
+	FOREIGN KEY (producer_id) REFERENCES producers(producer_id)
+);
+
+CREATE TABLE consumers(
+	consumer_id SERIAL PRIMARY KEY,
+	consumer_name VARCHAR(50)
+);
+
+CREATE TABLE purcases(
+	consumer_id INT NOT NULL,
+	product_id INT NOT NULL,
+	FOREIGN KEY (consumer_id) REFERENCES consumers(consumer_id),
+	FOREIGN KEY (product_id) REFERENCES products(product_id)		
+);
